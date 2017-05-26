@@ -1,9 +1,10 @@
 // 这是我们的玩家要躲避的敌人
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed) {
     // 要应用到每个敌人的实例的变量写在这里
     // 我们已经提供了一个来帮助你实现更多
     this.x = x;
     this.y = y;
+    this.speed = speed;
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
@@ -14,6 +15,12 @@ var Enemy = function(x, y) {
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
+    this.x += this.speed * dt;
+
+    if (this.x >= 505) {
+        this.x = 0;
+        this.speed = Math.random() * 150 + 150;
+    }
 };
 
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
@@ -64,8 +71,10 @@ Player.prototype.handleInput = function(key) {
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
 var allEnemies = [];
-var enemy = new Enemy(0, 145);
-allEnemies.push(enemy);
+for (var i = 0; i < 3; i++) {
+    var enemy = new Enemy(0, 57 + 83 * i, Math.random() * 150 + 150);
+    allEnemies.push(enemy);
+}
 
 var player = new Player(101, 83);
 
