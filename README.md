@@ -1,3 +1,4 @@
+[GitHub Pages Demo](https://janicejiang.github.io/frontend-nanodegree-arcade-game/)
 
 前端纳米学位街机游戏克隆项目
 ===============================
