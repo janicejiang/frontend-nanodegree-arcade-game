@@ -46,7 +46,9 @@ var Player = function(x, y) {
 };
 
 Player.prototype.update = function() {
-
+    if (player.y === 0) {
+        allEnemies = [];
+    }
 };
 
 Player.prototype.render = function() {
