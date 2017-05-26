@@ -37,8 +37,27 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function() {
-
+// 101为player横向走1步的距离
+// 83为player竖向走1步的距离
+Player.prototype.handleInput = function(key) {
+    switch (key) {
+        case 'left':
+            if (this.x >= 101) {
+                this.x -= 101;
+            } break;
+        case 'up':
+            if (this.y >= 83) {
+                this.y -= 83;
+            } break;
+        case 'right':
+            if (this.x <= 101 * 3) {
+                this.x += 101;
+            } break;
+        case 'down':
+            if (this.y <= 83 * 4) {
+                this.y += 83;
+            } break;
+    }
 };
 
 // 现在实例化你的所有对象
@@ -48,7 +67,7 @@ var allEnemies = [];
 var enemy = new Enemy(0, 145);
 allEnemies.push(enemy);
 
-var player = new Player(0, 0);
+var player = new Player(101, 83);
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。
