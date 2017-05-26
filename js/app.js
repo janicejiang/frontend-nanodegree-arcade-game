@@ -30,11 +30,8 @@ Enemy.prototype.render = function() {
 };
 
 Enemy.prototype.checkCollisions = function() {
-    if (player.y + 131 > this.y + 90 &&
-        player.x + 25 <= this.x + 88 &&
-        player.y + 73 <= this.y + 135 &&
-        player.x + 76 >= this.x + 11) {
-        window.alert("再玩一次!")
+    if (this.y === player.y + 15.5 &&
+        Math.abs(this.x - player.x) < 20) {
         player.x = 101 * 2;
         player.y = 83 * 4;
     }
@@ -65,16 +62,16 @@ Player.prototype.handleInput = function(key) {
                 this.x -= 101;
             } break;
         case 'up':
-            if (this.y >= 83) {
-                this.y -= 83;
+            if (this.y >= 41.5) {
+                this.y -= 41.5;
             } break;
         case 'right':
             if (this.x <= 101 * 3) {
                 this.x += 101;
             } break;
         case 'down':
-            if (this.y <= 83 * 4) {
-                this.y += 83;
+            if (this.y <= 83 * 4 + 41.5) {
+                this.y += 41.5;
             } break;
     }
 };
