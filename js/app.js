@@ -19,13 +19,25 @@ Enemy.prototype.update = function(dt) {
 
     if (this.x >= 505) {
         this.x = 0;
-        this.speed = Math.random() * 150 + 150;
+        this.speed = Math.random() * 200 + 100;
     }
 };
 
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    this.checkCollisions();
+};
+
+Enemy.prototype.checkCollisions = function() {
+    if (player.y + 131 > this.y + 90 &&
+        player.x + 25 <= this.x + 88 &&
+        player.y + 73 <= this.y + 135 &&
+        player.x + 76 >= this.x + 11) {
+        window.alert("再玩一次!")
+        player.x = 101 * 2;
+        player.y = 83 * 4;
+    }
 };
 
 // 现在实现你自己的玩家类
@@ -72,11 +84,11 @@ Player.prototype.handleInput = function(key) {
 // 把玩家对象放进一个叫 player 的变量里面
 var allEnemies = [];
 for (var i = 0; i < 3; i++) {
-    var enemy = new Enemy(0, 57 + 83 * i, Math.random() * 150 + 150);
+    var enemy = new Enemy(0, 57 + 83 * i, Math.random() * 200 + 100);
     allEnemies.push(enemy);
 }
 
-var player = new Player(101, 83);
+var player = new Player(101 * 2, 83 * 4);
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。
