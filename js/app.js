@@ -17,6 +17,7 @@ Enemy.prototype.update = function(dt) {
     // 都是以同样的速度运行的
     this.x += this.speed * dt;
 
+    // enemy的x值超出画布时, 重置为0, 以达到循环的效果
     if (this.x >= 505) {
         this.x = 0;
         this.speed = Math.random() * 200 + 100;
@@ -29,6 +30,7 @@ Enemy.prototype.render = function() {
     this.checkCollisions();
 };
 
+// player只在每块石子路的竖向中间位置与enemy相遇才重新开始游戏
 Enemy.prototype.checkCollisions = function() {
     if (this.y === player.y + 15.5 &&
         Math.abs(this.x - player.x) < 20) {
@@ -45,6 +47,7 @@ var Player = function(x, y) {
     this.sprite = 'images/char-boy.png';
 };
 
+// player到达河岸边后allEnemies消失
 Player.prototype.update = function() {
     if (player.y === 0) {
         allEnemies = [];
@@ -56,7 +59,7 @@ Player.prototype.render = function() {
 };
 
 // 101为player横向走1步的距离
-// 83为player竖向走1步的距离
+// 41.5为player竖向走1步的距离
 Player.prototype.handleInput = function(key) {
     switch (key) {
         case 'left':
