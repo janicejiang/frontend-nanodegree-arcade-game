@@ -30,12 +30,14 @@ Enemy.prototype.render = function() {
     this.checkCollisions();
 };
 
-// player只在每块石子路的竖向中间位置与enemy相遇才重新开始游戏
+// 碰撞检测
 Enemy.prototype.checkCollisions = function() {
-    if (this.y === player.y + 15.5 &&
-        Math.abs(this.x - player.x) < 20) {
-        player.x = 101 * 2;
-        player.y = 83 * 4;
+    if (this.x < player.x + 40 &&
+        this.x + 40 > player.x &&
+        this.y < player.y + 40 &&
+        40 + this.y > player.y) {
+            player.x = 101 * 2;
+            player.y = 83 * 4;
     }
 };
 
@@ -47,10 +49,11 @@ var Player = function(x, y) {
     this.sprite = 'images/char-boy.png';
 };
 
-// player到达河岸边后allEnemies消失
 Player.prototype.update = function() {
+    // 游戏胜利
     if (player.y === 0) {
-        allEnemies = [];
+        $("body").prepend("<img style='width: 505px' src='https://media.giphy.com/media/ToMjGpyO2OVfPLpoxu8/giphy.gif'>");
+        this.y = -10;
     }
 };
 
@@ -60,23 +63,25 @@ Player.prototype.render = function() {
 
 // 101为player横向走1步的距离
 // 41.5为player竖向走1步的距离
+var CELL_WIDTH = 101;
+var CELL_HEIGHT = 83;
 Player.prototype.handleInput = function(key) {
     switch (key) {
         case 'left':
-            if (this.x >= 101) {
-                this.x -= 101;
+            if (this.x >= CELL_WIDTH) {
+                this.x -= CELL_WIDTH;
             } break;
         case 'up':
-            if (this.y >= 41.5) {
-                this.y -= 41.5;
+            if (this.y >= CELL_HEIGHT / 2) {
+                this.y -= CELL_HEIGHT / 2;
             } break;
         case 'right':
-            if (this.x <= 101 * 3) {
-                this.x += 101;
+            if (this.x <= CELL_WIDTH * 3) {
+                this.x += CELL_WIDTH;
             } break;
         case 'down':
-            if (this.y <= 83 * 4 + 41.5) {
-                this.y += 41.5;
+            if (this.y <= CELL_HEIGHT * 4 + CELL_HEIGHT / 2) {
+                this.y += CELL_HEIGHT / 2;
             } break;
     }
 };
